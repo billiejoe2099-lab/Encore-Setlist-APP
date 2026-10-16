@@ -4,7 +4,7 @@ Prototipo estático para organizar el repertorio, los eventos y los ensayos de u
 
 ## Publicar en GitHub Pages
 
-1. Crea un repositorio en GitHub y sube `index.html` y `favicon.svg` (puedes incluir también este README).
+1. Crea un repositorio en GitHub y sube el contenido del ZIP conservando su estructura. `index.html` y `favicon.svg` deben quedar en la raíz; conserva también la carpeta `cloudflare-worker`.
 2. En el repositorio, abre **Settings → Pages**.
 3. En **Build and deployment**, selecciona **Deploy from a branch**, elige la rama principal y la carpeta **/(root)**, y guarda.
 4. GitHub mostrará la dirección pública del sitio en esa misma sección.
@@ -23,7 +23,8 @@ También puedes poner los tres archivos en la raíz de un repositorio existente.
 
 - `index.html`: aplicación web completa.
 - `favicon.svg`: icono de Encore para la pestaña del navegador.
+- `cloudflare-worker/`: backend listo para desplegar o adaptar al Worker que ya tienes.
 
-## Integración planeada
+## Conectar Cloudflare
 
-El backend tendrá un endpoint `POST /api/songs/:id/research` que devuelve metadatos musicales, equipo por guitarrista, equivalencias HX Stomp y citas. La investigación se ejecuta una sola vez por canción y se guarda con sus fuentes, estado y fecha. Para medios, `GET /api/media?title=…&artist=…&type=covers|backing|songsterr&limit=5` devolverá resultados; los de YouTube incluyen ID, título, canal y vistas, y los de Songsterr títulos y enlaces. El cliente ya entiende este formato para representar reproductores integrados y resultados seleccionables.
+Despliega el Worker incluido (o integra su código en tu Worker existente), vinculando KV como `SONG_CACHE` y el secreto `GEMINI_API_KEY`. Sigue `cloudflare-worker/README.md`. Después, abre Encore → **Mi banda** y pega la URL pública del Worker; ese es el único dato de Cloudflare que se introduce dentro de la app. Para los videos de YouTube, configura además el secreto opcional `YOUTUBE_API_KEY`. La búsqueda de Songsterr queda pendiente de una fuente autorizada.
