@@ -1,30 +1,70 @@
-# Encore
+# Band Repertorio
 
-Prototipo estático para organizar el repertorio, los eventos y los ensayos de una banda. No requiere instalación ni servidor: abre `index.html` o publícalo con GitHub Pages. El nombre de la banda se edita desde **Mi banda**. Al agregar una canción, escribe el título o artista y elige una sugerencia del catálogo; se completan el artista, álbum, género y portada.
+Una aplicación web para gestionar el repertorio de tu banda, eventos, ensayos y notas por canción.
 
-## Publicar en GitHub Pages
+## Características
 
-1. Crea un repositorio en GitHub y sube el contenido del ZIP conservando su estructura. `index.html` y `favicon.svg` deben quedar en la raíz; conserva también la carpeta `cloudflare-worker`.
-2. En el repositorio, abre **Settings → Pages**.
-3. En **Build and deployment**, selecciona **Deploy from a branch**, elige la rama principal y la carpeta **/(root)**, y guarda.
-4. GitHub mostrará la dirección pública del sitio en esa misma sección.
+- **Repertorio**: Busca canciones por título/artista, muestra portada de álbum y agrega al repertorio.
+- **Eventos**: Crea eventos pasados o futuros con fecha, hora, ubicación y asigna canciones.
+- **Ensayos**: Crea sesiones de ensayo y asigna canciones para practicar.
+- **Detalles de canción**: Al hacer clic en una canción, verás información como tonalidad, BPM, afinación y equipo de cada guitarrista (amplificadores, pedales de drive, modulación, delay, etc.).
+- **Notas por canción**: (Por implementar) espacio para anotar qué falta por ensayar.
+- **Interfaz minimalista**: Diseño limpio, moderno y visual, inspirado en Apple Music y Apple Notes.
+- **Persistencia**: Los datos se guardan en el almacenamiento local del navegador.
+- **Icono**: Incluye un ícono musical para la aplicación.
 
-También puedes poner los tres archivos en la raíz de un repositorio existente. Si los dejas dentro de una subcarpeta, GitHub Pages no los servirá desde la raíz del sitio.
+## Despliegue en GitHub Pages
 
-## Datos y alcance
+1. Sube todo el contenido de esta carpeta a un repositorio de GitHub (por ejemplo, `band-repertorio`).
+2. En la configuración del repositorio, ve a **Pages** y selecciona la rama `main` (o `master`) y la carpeta `/ (root)`.
+3. GitHub generará un sitio web en `https://<tu-usuario>.github.io/band-repertorio/`.
 
-- Canciones, eventos, orden del setlist y notas de ensayo se guardan en `localStorage` del navegador. Los cambios no se sincronizan entre integrantes ni entre dispositivos.
-- Las sugerencias y carátulas se consultan en el catálogo de iTunes/Apple. La búsqueda requiere conexión a internet. El idioma, tonalidad, BPM, afinación y equipo no los proporciona ese catálogo; se enriquecerán con el backend de Gemini.
-- Los paneles de YouTube y Songsterr ya tienen espacio para incrustar los resultados; necesitan el backend de Encore configurado para poblarlos. YouTube requiere buscar con su Data API y después reproducir con el reproductor embebido. Songsterr debe integrarse con enlaces públicos o acceso autorizado; no se deben extraer datos automatizando su sitio.
-- La integración de Gemini requiere un backend que guarde la clave en una variable secreta y almacene investigaciones completadas para reutilizarlas. Nunca pongas una clave API en este sitio estático.
-- Los datos de la banda y las canciones siguen guardándose en `localStorage`: son locales a un navegador y no se sincronizan entre integrantes.
+## Uso
 
-## Archivos
+### Editar el nombre de la banda
+- En el encabezado, escribe el nombre de tu banda y haz clic en **Guardar**.
 
-- `index.html`: aplicación web completa.
-- `favicon.svg`: icono de Encore para la pestaña del navegador.
-- `cloudflare-worker/`: backend listo para desplegar o adaptar al Worker que ya tienes.
+### Agregar canciones al repertorio
+1. En la sección **Repertorio**, escribe el nombre de una canción o artista en el campo de búsqueda.
+2. Aparecerán sugerencias con portada de álbum, título y artista.
+3. Haz clic en una canción para seleccionarla.
+4. La canción se agregará automáticamente al repertorio y se mostrará en la lista.
+5. Puedes hacer clic en cualquier canción del repertorio para ver sus detalles en un popup.
 
-## Conectar Cloudflare
+### Agregar canciones a eventos o ensayos
+1. Selecciona una canción del repertorio (clic en la canción).
+2. Los botones **Agregar a evento** y **Agregar a ensayo** se activarán.
+3. Haz clic en el botón correspondiente para asignar la canción a un evento o ensayo (funcionalidad básica; se puede mejorar seleccionando el evento/ensayo específico).
 
-Despliega el Worker incluido (o integra su código en tu Worker existente), vinculando KV como `SONG_CACHE` y el secreto `GEMINI_API_KEY`. Sigue `cloudflare-worker/README.md`. Después, abre Encore → **Mi banda** y pega la URL pública del Worker; ese es el único dato de Cloudflare que se introduce dentro de la app. Para los videos de YouTube, configura además el secreto opcional `YOUTUBE_API_KEY`. La búsqueda de Songsterr queda pendiente de una fuente autorizada.
+### Crear eventos y ensayos
+1. Ve a la sección **Eventos** o **Ensayos**.
+2. Haz clic en **+ Nuevo evento** o **+ Nuevo ensayo**.
+3. Completa los datos solicitados (nombre, fecha, hora opcional, ubicación opcional).
+4. El evento/ensayo aparecerá en la lista.
+5. Haz clic en un evento/ensayo para ver sus detalles y las canciones asignadas.
+
+### Configuración de la API de Gemini
+- La aplicación usa la API de Gemini para obtener detalles avanzados de las canciones (como tonalidad, BPM, afinación y equipo).
+- En la sección **Ajustes**, ingresa tu clave de API de Gemini.
+- **Nota**: La implementación actual incluye una función de ejemplo (mock) que devuelve datos de muestra. Para usar la API real, deberás reemplazar la función `fetchGeminiDetails` en `script.js` por una llamada auténtica a la API de Gemini.
+
+## Próximos pasos / Mejoras posibles
+
+- Implementar selección específica de evento/ensayo al agregar una canción.
+- Arrastrar y soltar para reordenar canciones dentro de un evento o ensayo.
+- Sección de "Ensayar canción" con videos de tabs de YouTube, backing tracks y enlaces a Songsterr.
+- Nota por canción para marcar lo que falta por ensayar.
+- Sincronización con la nube (opcional).
+- Soporte para múltiples guitarras y bajos.
+- Exportar/importar datos como JSON.
+
+## Desarrollo local
+
+Para probar la aplicación localmente, simplemente abre `index.html` en tu navegador (se recomienda usar un servidor local para evitar problemas de CORS, por ejemplo:
+
+```bash
+# Si tienes Python instalado
+python -m http.server 8000
+
+# Luego abre http://localhost:8000 en tu navegador
+```
