@@ -1,27 +1,27 @@
 # Encore
 
-Sitio estático para gestionar el repertorio, eventos y ensayos de una banda.
+Sitio estático para gestionar repertorio, eventos y ensayos de una banda.
 
 ## Publicar en GitHub Pages
 
 1. Sube `index.html` y `favicon.svg` a la raíz del repositorio.
 2. En GitHub abre **Settings → Pages** y selecciona **Deploy from a branch**, tu rama principal y `/(root)`.
-3. En **Mi banda**, configura APInex para investigación con IA y YouTube Data API para videos.
+3. Configura APInex en **Mi banda** si quieres buscar equipo original en fuentes web.
 
-## Investigación de equipo y tono
+## Equipo original
 
-La ficha consulta resultados web mediante APInex y pide al modelo que contraste Equipboard, entrevistas, rig rundowns y foros. Genera una posible cadena por guitarrista, atribuye evidencia e incertidumbre y propone un punto de partida descriptivo por bloque HX Stomp. Se conserva la envoltura JSON que permite mostrar los datos de forma legible; los bloques se validan contra la lista HX y no se aceptan nombres desconocidos. Los resultados quedan guardados con la canción en este navegador para evitar búsquedas repetidas.
+La búsqueda consulta APInex Web Search y pide al modelo sintetizar únicamente atribuciones de equipo original por guitarrista, incluyendo únicamente datos vinculados por las fuentes a esa canción o a su álbum/época; omite equipo general del artista sin ese vínculo. No propone bloques HX Stomp ni recomendaciones de tono. Se guardan fuentes enlazadas junto a la canción para reducir búsquedas repetidas. La búsqueda web y la llamada al modelo pueden tener cuotas distintas.
 
-En **Mi banda** se editan la clave API, URL base y modelo APInex. El valor inicial es `https://api.apinex.bond/v1` y `free/gpt-6-luna`. La clave se guarda localmente y se envía desde el navegador a APInex; quien tenga acceso al navegador puede inspeccionarla. El acceso directo desde GitHub Pages depende de CORS. La búsqueda web puede tener cuota propia.
+La clave API, URL base y modelo APInex se configuran en **Mi banda** y se guardan en el almacenamiento local del navegador. GitHub Pages no protege una clave que se usa desde el cliente. La llamada directa también depende de que APInex acepte CORS desde el sitio.
 
-## YouTube
+## StemDeck integrado
 
-Guarda una clave de YouTube Data API en **Mi banda**. Los resultados se normalizan sin distinguir mayúsculas, minúsculas ni acentos; se filtran por canción y se priorizan guitarra/covers con tabs o guitar backing tracks antes de ordenar por vistas. La API no garantiza que un video esté correctamente etiquetado. [Búsqueda](https://developers.google.com/youtube/v3/docs/search/list) · [estadísticas](https://developers.google.com/youtube/v3/docs/videos/list).
+El apartado StemDeck incrusta `https://192.168.100.29:8443/mobile/` directamente. El equipo que hospeda StemDeck debe estar encendido y accesible por la red local. La documentación oficial indica que la conexión móvil usa HTTPS y un certificado generado localmente; cada dispositivo debe confiar en ese certificado una vez. [Configuración oficial](https://github.com/stemdeckapp/stemdeck/blob/main/docs/configuration.md).
 
-## StemDeck
+No hay un permiso de navegador que Encore pueda otorgar para permitir un iframe. Si el servidor devuelve `X-Frame-Options: DENY`/`SAMEORIGIN` o una política CSP `frame-ancestors` que excluye Encore, el administrador del servidor o proxy debe retirar ese bloqueo o permitir el origen HTTPS exacto de GitHub Pages. No uses `*` para sitios públicos. [Cómo funcionan estas cabeceras](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options).
 
-El apartado **StemDeck** carga `https://192.168.100.29:8443/mobile/` en un marco y ofrece abrirlo en otra pestaña. El dispositivo debe estar accesible en la misma red. El navegador puede exigir confiar en el certificado HTTPS local y StemDeck puede impedir la inserción mediante políticas de marcos; en ese caso, usa el botón de nueva pestaña.
+## Apariencia y datos
 
-## Apariencia y almacenamiento
+En **Mi banda → Apariencia** se elige tema claro, oscuro o automático y el color de acento. El acento se aplica a botones, navegación, superficies resaltadas, icono y favicon. El panel lateral permanece pegado al borde izquierdo y se adapta a escritorio y móvil. Inicio muestra una vista breve del siguiente ensayo y evento; al pulsarlas se abre el ensayo completo o el setlist del evento.
 
-En **Mi banda → Apariencia** se elige modo claro, oscuro o automático, además del color de acento. El favicon y el icono de Encore siguen el acento. El diseño se adapta a móvil y escritorio. El nombre, logo, repertorio, eventos, ensayos, preferencias e investigaciones se guardan localmente en el navegador y no se sincronizan entre integrantes. Songsterr sigue necesitando una integración propia.
+Nombre, logo, repertorio, eventos, ensayos, preferencias e investigaciones se guardan localmente en el navegador; no se sincronizan automáticamente entre dispositivos.
