@@ -1,22 +1,28 @@
 # Encore
 
-Sitio estático para gestionar repertorio, eventos y ensayos de una banda.
+Sitio estático para gestionar el repertorio, eventos y ensayos de una banda. Los datos y preferencias se guardan en el navegador.
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html` y `favicon.svg` a la raíz del repositorio.
+1. Sube `index.html`, `favicon.svg` y `README.md` a la raíz del repositorio.
 2. En GitHub abre **Settings → Pages** y selecciona **Deploy from a branch**, tu rama principal y `/(root)`.
-3. En **Mi banda**, configura APInex si quieres investigar rigs o conversar sobre canciones.
+3. En **Mi banda**, configura APInex si quieres usar los datos musicales automáticos o el chat.
 
-## APInex (Chat Completions directo)
+## Datos musicales y APInex
 
-La app usa únicamente `POST /v1/chat/completions` con el modelo configurado —por defecto `free/gpt-6-luna`— para investigar o conversar. No llama a herramientas de búsqueda web. Agregar una canción no consume llamadas; la investigación requiere pulsar **Investigar rig**. Después se puede usar **Rehacer investigación** para volver a consultar el modelo. Como no se consulta la web, las atribuciones pueden quedar sin confirmar y el modelo debe indicar incertidumbre.
+Al agregar una canción nueva, Encore hace una sola llamada directa a `POST /v1/chat/completions` con el modelo configurado (por defecto `free/gpt-6-luna`) para sugerir tonalidad, BPM, afinación y un contexto breve. No usa herramientas de búsqueda web ni hace llamadas automáticas para canciones ya guardadas. El botón ↻ permite actualizar manualmente esos datos. La precisión puede variar: el modelo indica cuando un dato no está confirmado.
 
-El chat de cada canción se guarda en `localStorage` junto a esa canción. La clave APInex también se guarda localmente y se envía desde el navegador; GitHub Pages no puede ocultar una clave usada desde el cliente. La conexión depende de que APInex permita CORS desde el origen del sitio. Si Chat Completions devuelve “insufficient balance”, confirma en la cuenta de APInex el acceso a `free/gpt-6-luna`, el límite diario y el estado de la clave.
+El chat de cada canción se guarda localmente. La clave APInex también se guarda en el navegador y se envía desde el navegador al proveedor; GitHub Pages no puede ocultarla de quien inspeccione ese navegador. La conexión requiere que APInex permita CORS desde el sitio publicado. Si el proveedor devuelve “insufficient balance”, revisa el estado de la clave, el acceso al modelo y los límites de tu cuenta APInex.
+
+## Eventos y setlists
+
+Eventos ofrece vista de lista y calendario mensual. Los días con ensayo aparecen marcados; cada evento muestra cuántos días faltan y cuántos ensayos programados quedan antes de su fecha. Desde el evento puedes abrir su setlist, añadir/quitar canciones, arrastrar para ordenarlas y usar **Imprimir setlist**. El botón abre la impresión del navegador, donde puedes elegir **Guardar como PDF**; el diseño ajusta el tamaño de los títulos para aprovechar una hoja A4.
+
+Al pulsar una canción del setlist se abre su hoja de estructura/letra. Puedes escribir o pegar contenido propio, insertar etiquetas de secciones arrastrándolas o tocándolas, subrayar texto y añadir anotaciones. Este contenido se guarda localmente por canción.
 
 ## Ensayos
 
-Hay ensayos recurrentes los martes y jueves a las 20:00. El calendario cambia de mes con sus botones; puedes arrastrar un ensayo a otro día, editar nombre/hora/lugar, cancelarlo o agregar una fecha especial. Cada ensayo mantiene su propia lista de canciones y notas por canción. Desde Repertorio, **＋ ensayo** pregunta a qué fecha agregar la canción. Inicio muestra la próxima fecha futura y las canciones de esa sesión.
+Hay ensayos recurrentes los martes y jueves a las 20:00. El calendario permite mover sesiones entre días, editar nombre/hora/lugar, cancelarlas o agregar fechas especiales. Cada ensayo mantiene su lista de canciones y notas propias. Desde Repertorio, **＋ ensayo** pregunta a qué sesión agregar la canción. Inicio muestra la próxima fecha futura.
 
 ## StemDeck
 
@@ -26,4 +32,4 @@ Si StemDeck bloquea el iframe, el servidor o proxy debe permitir el origen HTTPS
 
 ## Apariencia y almacenamiento
 
-En **Mi banda → Apariencia** se elige tema claro, oscuro o automático, más el color de acento. Repertorio, logo, banda, eventos, ensayos, preferencias, investigación y chats se guardan localmente en este navegador y no se sincronizan automáticamente.
+En **Mi banda → Apariencia** se elige tema claro, oscuro o automático, además del color de acento. Repertorio, logo, banda, eventos, ensayos, letras/estructuras, preferencias, datos musicales y chats se guardan localmente en este navegador y no se sincronizan automáticamente.
