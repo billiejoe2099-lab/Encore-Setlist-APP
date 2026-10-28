@@ -11,6 +11,8 @@ Sitio estático para gestionar el repertorio, eventos y ensayos de una banda.
 ## APInex y privacidad
 
 - Los campos de **Mi banda** permiten cambiar la clave, URL base y modelo. De inicio usan `https://api.apinex.bond/v1` y `free/gpt-6-luna`.
+- La app prueba e investiga por `POST /v1/chat/completions` con formato OpenAI-compatible.
+- La búsqueda web está apagada por defecto; se puede activar en **Mi banda**, pero puede requerir saldo aparte del modelo. Al apagarla, la llamada va directamente a Chat Completions y el resultado no incluye fuentes web verificadas.
 - En cada investigación, la app busca fuentes con la herramienta APInex Web Search y pasa esos extractos al modelo. La búsqueda web y la inferencia pueden tener cuotas o cargos propios de APInex; confirma las condiciones actuales de tu cuenta.
 - La clave se guarda en `localStorage` de este navegador y no se publica en GitHub ni se manda a Cloudflare. El navegador la incluye en solicitudes directas a APInex, así que alguien con acceso a ese navegador puede inspeccionarla.
 - Resultados de investigación se guardan con las canciones en el almacenamiento local para no repetir la búsqueda en este navegador. Para volver a investigar, elimina la canción y vuelve a agregarla, o borra sus datos del navegador.
