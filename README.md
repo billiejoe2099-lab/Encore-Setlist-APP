@@ -1,25 +1,24 @@
 # Encore
 
-Sitio estático para gestionar el repertorio, eventos y ensayos de una banda. Los datos y preferencias se guardan en el navegador.
+Sitio estático para gestionar repertorio, eventos y ensayos de una banda. No integra GPT, Gemini, APInex ni búsqueda web de IA. La información musical de cada canción proviene de la API de búsqueda de iTunes de Apple; los datos de la banda, eventos, ensayos y notas se guardan en el navegador.
 
 ## Publicar en GitHub Pages
 
 1. Sube `index.html`, `favicon.svg` y `README.md` a la raíz del repositorio.
 2. En GitHub abre **Settings → Pages** y selecciona **Deploy from a branch**, tu rama principal y `/(root)`.
-3. En **Mi banda**, configura APInex si quieres usar los datos musicales automáticos o el chat.
+3. Abre el sitio y usa **＋ Añadir canción** para buscar por título o artista y seleccionar un resultado de iTunes.
 
-## Datos musicales, búsqueda web y APInex
+## Canciones e iTunes
 
-Al agregar una canción nueva, Encore usa APInex Web Search para encontrar fuentes y luego envía esos resultados al modelo configurado (por defecto `free/gpt-6-luna`) vía `POST /v1/chat/completions`. La búsqueda web y el modelo son servicios separados: el modelo gratuito no vuelve gratuita automáticamente la herramienta web. Los costos/límites de búsqueda dependen de APInex y de tu cuenta. La app muestra una opción para apagar la búsqueda web; revisa el panel de APInex antes de activarla. Las fuentes encontradas se guardan con la ficha y aparecen como enlaces.
+La portada, título, artista, álbum, género, fecha de lanzamiento, duración, número de pista/disco, país de tienda, clasificación de contenido, precio y enlaces provienen del resultado de iTunes cuando estén disponibles. Repertorio muestra estos datos y permite ordenarlos de forma ascendente o descendente, además de filtrar por género y artista/banda. El idioma se quitó. iTunes no proporciona tonalidad, BPM ni afinación, por eso esos campos ya no aparecen. Algunas canciones no tienen todos los metadatos o imagen disponibles.
 
-La consulta musical se hace al agregar una canción y puede rehacerse manualmente con ↻. El chat de cada canción también puede consultar fuentes web; al desactivar el interruptor, responde sin búsqueda externa. La clave APInex se guarda en el navegador y se envía desde allí al proveedor; GitHub Pages no puede ocultarla de quien inspeccione ese navegador. La conexión requiere que APInex permita CORS desde el sitio publicado.
+La vista de canción puede mostrar una vista previa de audio de iTunes y un enlace a Apple Music/iTunes si la respuesta los incluye. No se requiere clave de API.
 
-Las letras completas no se importan automáticamente. La investigación puede proponer estructura sin versos (Intro, Verso, Coro, etc.); pega o escribe contenido que tengas derecho a usar. La letra y estructura se guardan localmente y puedes bloquearlas para solo lectura, desbloquearlas, reordenar secciones arrastrándolas y quitarlas soltándolas en el área de eliminación.
 ## Eventos y setlists
 
 Eventos ofrece vista de lista y calendario mensual. Los días con ensayo aparecen marcados; cada evento muestra cuántos días faltan y cuántos ensayos programados quedan antes de su fecha. Desde el evento puedes abrir su setlist, añadir/quitar canciones, arrastrar para ordenarlas y usar **Imprimir setlist**. El botón abre la impresión del navegador, donde puedes elegir **Guardar como PDF**; el diseño ajusta el tamaño de los títulos para aprovechar una hoja A4.
 
-Al pulsar una canción del setlist se abre su hoja de estructura/letra. Puedes escribir o pegar contenido propio, insertar etiquetas de secciones arrastrándolas o tocándolas, subrayar texto y añadir anotaciones. Este contenido se guarda localmente por canción.
+Al pulsar una canción del setlist se abre su hoja de estructura/letra. Puedes escribir o pegar contenido propio, insertar etiquetas de secciones arrastrándolas o tocándolas, subrayar texto y añadir anotaciones. La información se guarda localmente por canción.
 
 ## Ensayos
 
@@ -33,5 +32,4 @@ Si StemDeck bloquea el iframe, el servidor o proxy debe permitir el origen HTTPS
 
 ## Apariencia y almacenamiento
 
-En **Mi banda → Apariencia** se elige tema claro, oscuro o automático, además del color de acento. Repertorio, logo, banda, eventos, ensayos, letras/estructuras, preferencias, datos musicales y chats se guardan localmente en este navegador y no se sincronizan automáticamente.
-
+En **Mi banda → Apariencia** se elige tema claro, oscuro o automático, además del color de acento. Repertorio, logo, banda, eventos, ensayos, letras/estructuras y preferencias se guardan localmente en este navegador y no se sincronizan automáticamente. Las claves y los campos locales de IA heredados se eliminan al abrir esta versión.
