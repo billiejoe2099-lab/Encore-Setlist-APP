@@ -10,7 +10,7 @@ Sitio estático para gestionar repertorio, eventos y ensayos de una banda. No in
 
 ## Canciones e iTunes
 
-La portada, título, artista, álbum, género, fecha de lanzamiento, duración, número de pista/disco, país de tienda, clasificación de contenido, precio y enlaces provienen del resultado de iTunes cuando estén disponibles. Repertorio muestra estos datos y permite ordenarlos de forma ascendente o descendente, además de filtrar por género y artista/banda. El idioma se quitó. iTunes no proporciona tonalidad, BPM ni afinación, por eso esos campos ya no aparecen. Algunas canciones no tienen todos los metadatos o imagen disponibles.
+La portada, título, artista, álbum, género, fecha de lanzamiento, duración, número de pista/disco, país de tienda, clasificación de contenido, precio y enlaces provienen del resultado de iTunes cuando estén disponibles. Repertorio muestra estos datos y permite ordenarlos de forma ascendente o descendente, además de filtrar por género y artista/banda. Cada canción tiene accesos para sumarla directamente a un ensayo o evento. El idioma se quitó. iTunes no proporciona tonalidad, BPM ni afinación, por eso esos campos ya no aparecen. Algunas canciones no tienen todos los metadatos o imagen disponibles.
 
 La vista de canción puede mostrar una vista previa de audio de iTunes y un enlace a Apple Music/iTunes si la respuesta los incluye. No se requiere clave de API.
 
@@ -22,7 +22,7 @@ Al pulsar una canción del setlist se abre su hoja de estructura/letra. Puedes e
 
 ## Ensayos
 
-Hay ensayos recurrentes los martes y jueves a las 20:00. El calendario permite mover sesiones entre días, editar nombre/hora/lugar, cancelarlas o agregar fechas especiales. Cada ensayo mantiene su lista de canciones y notas propias. Desde Repertorio, **＋ ensayo** pregunta a qué sesión agregar la canción. Inicio muestra la próxima fecha futura.
+Hay ensayos recurrentes los martes y jueves a las 20:00. El calendario permite mover sesiones entre días, editar nombre/hora/lugar, cancelarlas o agregar fechas especiales. Cada ensayo mantiene su lista de canciones y notas propias. Desde Repertorio, **＋ Ensayo** pregunta a qué sesión agregar la canción. Dentro del panel de un ensayo también puedes elegir canciones del repertorio; dentro del evento puedes agregarlas al setlist. Inicio muestra la próxima fecha futura.
 
 ## StemDeck
 
@@ -33,3 +33,4 @@ Si StemDeck bloquea el iframe, el servidor o proxy debe permitir el origen HTTPS
 ## Apariencia y almacenamiento
 
 En **Mi banda → Apariencia** se elige tema claro, oscuro o automático, además del color de acento. Repertorio, logo, banda, eventos, ensayos, letras/estructuras y preferencias se guardan localmente en este navegador y no se sincronizan automáticamente. Las claves y los campos locales de IA heredados se eliminan al abrir esta versión.
+
